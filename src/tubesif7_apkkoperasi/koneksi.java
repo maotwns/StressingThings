@@ -9,8 +9,6 @@ package tubesif7_apkkoperasi;
     import java.util.Properties;
     import javax.swing.JOptionPane;
 
-    import java.util.Properties;
-
 /**
  *
  * @author RANI AMALIYAH
