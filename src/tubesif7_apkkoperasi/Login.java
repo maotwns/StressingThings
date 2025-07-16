@@ -5,6 +5,10 @@
  */
 package tubesif7_apkkoperasi;
 
+import javax.swing.*;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author hana
@@ -14,9 +18,47 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    koneksi dbsetting;
+    String driver,database,user,pass;
     public Login() {
         initComponents();
+        dbsetting = new koneksi();
+        driver = dbsetting.SettingPanel("DBDriver");
+        database = dbsetting.SettingPanel("DBDatabase");
+        user = dbsetting.SettingPanel("DBUsername");
+        pass = dbsetting.SettingPanel("DBPassword");
+        
     }
+    private void doLogin() {
+        String username = txtUsn.getText();
+        String password = new String(txtPw.getText());
+
+        try{
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            String SQL = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement pst = kon.prepareStatement(SQL);
+            pst.setString(1, username);
+            pst.setString(2, password);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Login berhasil");
+
+                MainMenu main = new MainMenu();
+                main.setVisible(true);
+
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +77,7 @@ public class Login extends javax.swing.JFrame {
         txtPw = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(226, 237, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -129,9 +171,8 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        MainMenu main = new MainMenu();
-        main.setVisible(true);
-        dispose();
+        doLogin();
+       
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
