@@ -37,6 +37,7 @@ public class MainMenu extends javax.swing.JFrame {
         btnAnggota = new javax.swing.JButton();
         btnBarang = new javax.swing.JButton();
         btnPembelian = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnPenjualan = new javax.swing.JButton();
         Laporan = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -53,7 +54,7 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setBackground(new java.awt.Color(255, 246, 216));
-        jPanel2.setLayout(new java.awt.GridLayout(7, 1));
+        jPanel2.setLayout(new java.awt.GridLayout(8, 1));
 
         lblPetugas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPetugas.setText("\"\"");
@@ -90,6 +91,11 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnPembelian);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/logifix (2) (1).png"))); // NOI18N
+        jButton1.setText("Data Supplier");
+        jPanel2.add(jButton1);
 
         btnPenjualan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnPenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/4.png"))); // NOI18N
@@ -170,6 +176,7 @@ public class MainMenu extends javax.swing.JFrame {
     javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPembelian;
     private javax.swing.JButton btnPenjualan;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
