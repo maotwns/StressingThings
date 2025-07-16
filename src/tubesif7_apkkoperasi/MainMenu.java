@@ -41,7 +41,8 @@ public class MainMenu extends javax.swing.JFrame {
         Laporan = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Main Menu");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 

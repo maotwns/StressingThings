@@ -35,7 +35,7 @@ public class Login extends javax.swing.JFrame {
         txtPw = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(226, 237, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -129,6 +129,9 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        MainMenu main = new MainMenu();
+        main.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
