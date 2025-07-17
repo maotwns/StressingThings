@@ -391,7 +391,7 @@ public class Supplier extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         try{
             if(radio_kode.isSelected()){
-                if(txt_cari.getText() == ""){
+                if(txt_cari.getText() == "" || txt_cari.getText() == " "){
                     settableload();
                 }
                 else {
@@ -416,7 +416,7 @@ public class Supplier extends javax.swing.JFrame {
             }
                         
             else if(radio_nama.isSelected()){
-                if(txt_cari.getText() == ""){
+                if(txt_cari.getText() == "" || txt_cari.getText() == " "){
                     settableload();
                 }
                 else {
@@ -488,14 +488,14 @@ public class Supplier extends javax.swing.JFrame {
                               + "phone) "
                               + "VALUES "
                               + "( '"+txt_namaspl.getText()+"',"
-                              + " ' "+txt_alamatspl.getText()+" ' ,"
-                              + " ' "+txt_telpspl.getText()+" ')";
+                              + " '"+txt_alamatspl.getText()+"' ,"
+                              + " '"+txt_telpspl.getText()+"')";
                 stt.executeUpdate(SQL);
                 data[1] = txt_namaspl.getText();
                 data[2] = txt_alamatspl.getText();
                 data[3] = txt_telpspl.getText();
 
-                tableModel.insertRow(0, data);
+                tableModel.insertRow(1, data);
                 stt.close();
                 kon.close();
                 membersihkan_teks();
