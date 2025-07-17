@@ -37,7 +37,7 @@ public class MainMenu extends javax.swing.JFrame {
         btnAnggota = new javax.swing.JButton();
         btnBarang = new javax.swing.JButton();
         btnPembelian = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_supplier = new javax.swing.JButton();
         btnPenjualan = new javax.swing.JButton();
         Laporan = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -97,19 +97,34 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jPanel2.add(btnPembelian);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/logifix (2) (1).png"))); // NOI18N
-        jButton1.setText("Data Supplier");
-        jPanel2.add(jButton1);
+        btn_supplier.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_supplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/logifix (2) (1).png"))); // NOI18N
+        btn_supplier.setText("Data Supplier");
+        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_supplierActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_supplier);
 
         btnPenjualan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnPenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/4.png"))); // NOI18N
         btnPenjualan.setText("Transaksi Penjualan");
+        btnPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenjualanActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnPenjualan);
 
         Laporan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubesif7_apkkoperasi/5.png"))); // NOI18N
         Laporan.setText("Laporan");
+        Laporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaporanActionPerformed(evt);
+            }
+        });
         jPanel2.add(Laporan);
 
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -129,14 +144,23 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnggotaActionPerformed
         // TODO add your handling code here:
+        DataAnggota anggota = new DataAnggota();
+        anggota.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAnggotaActionPerformed
 
     private void btnBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarangActionPerformed
         // TODO add your handling code here:
+        DataBarang barang = new DataBarang();
+        barang.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnBarangActionPerformed
 
     private void btnPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPembelianActionPerformed
         // TODO add your handling code here:
+        TPembelian beli = new TPembelian();
+        beli.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPembelianActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -149,6 +173,25 @@ public class MainMenu extends javax.swing.JFrame {
         Login loginmenu = new Login();
         loginmenu.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
+        // TODO add your handling code here:
+        Supplier sppl = new Supplier();
+        sppl.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_supplierActionPerformed
+
+    private void btnPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenjualanActionPerformed
+        // TODO add your handling code here:
+        TPenjualan jual = new TPenjualan();
+        jual.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPenjualanActionPerformed
+
+    private void LaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaporanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LaporanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,7 +236,7 @@ public class MainMenu extends javax.swing.JFrame {
     javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPembelian;
     private javax.swing.JButton btnPenjualan;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_supplier;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
