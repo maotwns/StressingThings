@@ -117,7 +117,7 @@ public class Supplier extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         label_cari = new javax.swing.JLabel();
         txt_cari = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_cari = new javax.swing.JButton();
         radio_kode = new javax.swing.JRadioButton();
         radio_nama = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
@@ -179,10 +179,10 @@ public class Supplier extends javax.swing.JFrame {
 
         txt_cari.setText("jTextField1");
 
-        jButton1.setLabel("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cari.setLabel("Cari");
+        btn_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_cariActionPerformed(evt);
             }
         });
 
@@ -219,7 +219,7 @@ public class Supplier extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(radio_nama)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -238,7 +238,7 @@ public class Supplier extends javax.swing.JFrame {
                             .addComponent(txt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1)))
+                        .addComponent(btn_cari)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -386,9 +386,68 @@ public class Supplier extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cariActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        tableModel.setRowCount(0);
+        try{
+            if(radio_kode.isSelected()){
+                if(txt_cari.getText() == ""){
+                    settableload();
+                }
+                else {
+                    Class.forName(driver);
+                    Connection kon = DriverManager.getConnection(database,user,pass);
+                    Statement stt = kon.createStatement();
+                    String SQL ="SELECT * FROM suppliers WHERE supplier_id="+txt_cari.getText();
+                    ResultSet res = stt.executeQuery(SQL);
+                    while(res.next()){
+
+                    data[0] = res.getString(1);
+                    data[1] = res.getString(2);
+                    data[2] = res.getString(3);
+                    data[3] = res.getString(4);
+                    tableModel.addRow(data);
+
+                    }
+                    res.close();
+                    stt.close();
+                    kon.close();
+                } 
+            }
+                        
+            else if(radio_nama.isSelected()){
+                if(txt_cari.getText() == ""){
+                    settableload();
+                }
+                else {
+                    Class.forName(driver);
+                    Connection kon = DriverManager.getConnection(database,user,pass);
+                    Statement stt = kon.createStatement();
+                    String SQL ="SELECT * FROM suppliers WHERE name="+txt_cari.getText();
+                    ResultSet res = stt.executeQuery(SQL);
+                    while(res.next()){
+
+                    data[0] = res.getString(1);
+                    data[1] = res.getString(2);
+                    data[2] = res.getString(3);
+                    data[3] = res.getString(4);
+                    tableModel.addRow(data);
+
+                    }
+                    res.close();
+                    stt.close();
+                    kon.close();                
+                }                
+            }            
+        }
+        catch(Exception ex){
+        
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+            
+        }
+    }//GEN-LAST:event_btn_cariActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -505,13 +564,13 @@ public class Supplier extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
+    private javax.swing.JButton btn_cari;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_keluar;
     private javax.swing.ButtonGroup btn_opsi;
     private javax.swing.JButton btn_simpan;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_ubah;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
