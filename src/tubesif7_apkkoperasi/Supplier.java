@@ -110,14 +110,16 @@ public class Supplier extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
+        btn_opsi = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        label_cari = new javax.swing.JLabel();
         txt_cari = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        radio_kode = new javax.swing.JRadioButton();
+        radio_nama = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         txt_kodespl = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -172,10 +174,8 @@ public class Supplier extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Cari Berdasarkan");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Masukkan Data");
+        label_cari.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_cari.setText("Masukkan Data");
 
         txt_cari.setText("jTextField1");
 
@@ -183,6 +183,22 @@ public class Supplier extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        btn_opsi.add(radio_kode);
+        radio_kode.setText("Kode");
+        radio_kode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radio_kodeActionPerformed(evt);
+            }
+        });
+
+        btn_opsi.add(radio_nama);
+        radio_nama.setText("Nama");
+        radio_nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radio_namaActionPerformed(evt);
             }
         });
 
@@ -194,11 +210,14 @@ public class Supplier extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(label_cari))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(radio_kode)
+                        .addGap(18, 18, 18)
+                        .addComponent(radio_nama)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -211,10 +230,11 @@ public class Supplier extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(radio_kode)
+                            .addComponent(radio_nama))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(label_cari)
                             .addComponent(txt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -314,7 +334,7 @@ public class Supplier extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 32, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_tambah)
                         .addGap(18, 18, 18)
                         .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,7 +380,7 @@ public class Supplier extends javax.swing.JFrame {
                     .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_keluar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -437,6 +457,17 @@ public class Supplier extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btn_batalActionPerformed
 
+    private void radio_kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio_kodeActionPerformed
+        // TODO add your handling code here:
+        label_cari.setText("Masukkan Kode");
+        
+    }//GEN-LAST:event_radio_kodeActionPerformed
+
+    private void radio_namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio_namaActionPerformed
+        // TODO add your handling code here:
+        label_cari.setText("Masukkan Nama");
+    }//GEN-LAST:event_radio_namaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -476,15 +507,14 @@ public class Supplier extends javax.swing.JFrame {
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_keluar;
+    private javax.swing.ButtonGroup btn_opsi;
     private javax.swing.JButton btn_simpan;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_ubah;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -493,6 +523,9 @@ public class Supplier extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label_cari;
+    private javax.swing.JRadioButton radio_kode;
+    private javax.swing.JRadioButton radio_nama;
     private javax.swing.JTable tabelsupplier;
     private javax.swing.JTextArea txt_alamatspl;
     private javax.swing.JTextField txt_cari;
