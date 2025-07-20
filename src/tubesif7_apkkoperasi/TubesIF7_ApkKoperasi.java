@@ -16,8 +16,11 @@ public class TubesIF7_ApkKoperasi {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Login loginmenu = new Login();
-        loginmenu.setVisible(true);
+        //Login loginmenu = new Login();
+        //loginmenu.setVisible(true);
+        
+        MainMenu utama = new MainMenu();
+        utama.setVisible(true);
     }
     
 }
