@@ -616,7 +616,7 @@ public class DataAnggota extends javax.swing.JFrame {
             }
         }                                        
     }//GEN-LAST:event_btnChActionPerformed
-
+//cumakomen
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
         int row = TAnggota.getSelectedRow();
