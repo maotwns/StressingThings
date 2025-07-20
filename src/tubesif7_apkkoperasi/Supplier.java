@@ -391,14 +391,16 @@ public class Supplier extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         try{
             if(radio_kode.isSelected()){
-                if(txt_cari.getText() == "" || txt_cari.getText() == " "){
+                if(txt_cari.getText() == ""){
                     settableload();
                 }
                 else {
                     Class.forName(driver);
                     Connection kon = DriverManager.getConnection(database,user,pass);
                     Statement stt = kon.createStatement();
-                    String SQL ="SELECT * FROM suppliers WHERE supplier_id="+txt_cari.getText();
+                    String SQL ="SELECT * FROM suppliers WHERE supplier_id LIKE "
+                                + " '%"+txt_cari.getText()+"%'";
+                    System.out.println(SQL);
                     ResultSet res = stt.executeQuery(SQL);
                     while(res.next()){
 
@@ -412,18 +414,21 @@ public class Supplier extends javax.swing.JFrame {
                     res.close();
                     stt.close();
                     kon.close();
+                    
                 } 
             }
                         
             else if(radio_nama.isSelected()){
-                if(txt_cari.getText() == "" || txt_cari.getText() == " "){
+                if(txt_cari.getText() == ""){
                     settableload();
                 }
                 else {
                     Class.forName(driver);
                     Connection kon = DriverManager.getConnection(database,user,pass);
                     Statement stt = kon.createStatement();
-                    String SQL ="SELECT * FROM suppliers WHERE name="+txt_cari.getText();
+                    String SQL ="SELECT * FROM suppliers WHERE name LIKE "
+                                + "'%"+txt_cari.getText()+"%'";
+                    System.out.println(SQL);
                     ResultSet res = stt.executeQuery(SQL);
                     while(res.next()){
 
