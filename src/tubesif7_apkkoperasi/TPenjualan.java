@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 
 
 public class TPenjualan extends javax.swing.JFrame {
@@ -30,9 +31,70 @@ public class TPenjualan extends javax.swing.JFrame {
 
         
         AutoCompleteDecorator.decorate(combo_barang);
+        tabelitem.setModel(tableModelitem);
+        tabelbelanja.setModel(tableModelbelanja);
         setcomboload();
+        settableloaditem();
         
     }
+    //Tabel Daftar Item
+       private javax.swing.table.DefaultTableModel tableModelitem= new DefaultTableModel(
+                new Object[][] {},
+                new String [] {"ID Item",
+                               "Nama",
+                               "Stok",
+                               "Harga"}
+            ){
+                boolean[] canEdit = {false,false,false,false};
+                @Override public boolean isCellEditable(int r,int c){ return canEdit[c]; }
+        };
+    //Tabel List Belanjaan
+    private javax.swing.table.DefaultTableModel tableModelbelanja = new DefaultTableModel(
+    new Object[][] {},
+                new String [] {"ID Item",
+                               "Nama",
+                               "Kuantitas",
+                               "Harga",
+                               "Subtotal"}
+            ){
+                boolean[] canEdit = {false,false,false,false,false};
+                @Override public boolean isCellEditable(int r,int c){ return canEdit[c]; }
+        };
+    String data[]=new String[5];
+    private void settableloaditem(){
+
+    
+        String stat = "";
+        try{
+        
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select * from databarang";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next()){
+            
+                data[0] = res.getString(1);
+                data[1] = res.getString(2);
+                data[2] = res.getString(4);
+                data[3] = res.getString(6);
+                tableModelitem.addRow(data);
+                
+            }
+            res.close();
+            stt.close();
+            kon.close();
+            
+            
+        }
+        catch(Exception ex){
+        
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+    }
+    
         private void setcomboload(){
     
         String stat = "";
@@ -41,11 +103,14 @@ public class TPenjualan extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "select * from suppliers";
+            String SQL = "SELECT CONCAT(kodebrg, ' - ', namabrg) AS barang, hbeli FROM databarang;";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next()){
-                String namabarang = res.getString("name");
+                String namabarang = res.getString("barang");
+                String hargabarang = res.getString("hbeli");
                 combo_barang.addItem(namabarang);
+                txt_harga.setText(hargabarang);
+                
             
                 
             }
@@ -60,6 +125,8 @@ public class TPenjualan extends javax.swing.JFrame {
             System.exit(0);
         }
     }
+        
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,11 +143,11 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btn_tambah = new javax.swing.JButton();
         combo_barang = new javax.swing.JComboBox();
-        kuantitas = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1))
+        kuantitas = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 1000, 1))
         ;
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txt_harga = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
@@ -93,7 +160,7 @@ public class TPenjualan extends javax.swing.JFrame {
         tabelbelanja = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txt_totalharga = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -135,6 +202,11 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel3.setText("Masukkan Barang");
 
         btn_tambah.setText("+");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
         combo_barang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +214,7 @@ public class TPenjualan extends javax.swing.JFrame {
             }
         });
 
+        kuantitas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         kuantitas.setAutoscrolls(true);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -151,6 +224,9 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Harga Barang");
 
+        txt_harga.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_harga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -159,20 +235,21 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                             .addComponent(combo_barang, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(kuantitas, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(btn_tambah))
+                        .addGap(27, 27, 27)
+                        .addComponent(btn_tambah)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -191,7 +268,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,6 +310,9 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Total Bayar");
 
+        txt_totalharga.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_totalharga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -241,7 +321,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -250,7 +330,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(txt_totalharga, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -406,11 +486,43 @@ public class TPenjualan extends javax.swing.JFrame {
 
     private void combo_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_barangActionPerformed
         // TODO add your handling code here:
+        String selectedItem = (String) combo_barang.getSelectedItem();
+        String[] parts = selectedItem.split(" - ");
+        String kode = parts[0];   // B001
+        String nama = parts[1];   // Teh Botol
+        for (int i = 0; i < tabelitem.getRowCount(); i++) {
+            String code = tabelitem.getValueAt(i, 0).toString(); // Column 0 = Code
+        if (code.equals(kode)) {
+            Object valueInColumn4 = tabelitem.getValueAt(i, 3); // Column 4 (index 3)
+            txt_harga.setText((String)valueInColumn4);
+            break; // stop after finding the first match
+        }
+        }
     }//GEN-LAST:event_combo_barangActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        // TODO add your handling code here:
+        String selectedItem = (String) combo_barang.getSelectedItem();
+        String[] parts = selectedItem.split(" - ");
+        String kode = parts[0];   // B001
+        String nama = parts[1];   // Teh Botol
+        Object value = kuantitas.getValue();
+        int kuantitas1 = Integer.parseInt(value.toString());
+        int harga = Integer.parseInt(txt_harga.getText());
+        double subtotal = kuantitas1*harga;
+        Object[] rowData = {kode, nama, kuantitas.getValue(), txt_harga.getText(),subtotal}; // Adjust to match your table columns
+        tableModelbelanja.addRow(rowData);
+        
+        double total = 0;
+        for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
+            total += (double) tableModelbelanja.getValueAt(i, 4); // assuming column 3 is subtotal
+        }
+        txt_totalharga.setText(String.valueOf(total));
+    }//GEN-LAST:event_btn_tambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,10 +583,10 @@ public class TPenjualan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JSpinner kuantitas;
     private javax.swing.JTable tabelbelanja;
     private javax.swing.JTable tabelitem;
+    private javax.swing.JTextField txt_harga;
+    private javax.swing.JTextField txt_totalharga;
     // End of variables declaration//GEN-END:variables
 }
