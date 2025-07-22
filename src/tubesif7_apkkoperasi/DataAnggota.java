@@ -257,6 +257,12 @@ public class DataAnggota extends javax.swing.JFrame {
         InpData.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         InpData.setText("Masukkan Data");
 
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
+
         btnShow.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnShow.setText("Tampilkan Semua Data");
         btnShow.addActionListener(new java.awt.event.ActionListener() {
@@ -848,6 +854,10 @@ public class DataAnggota extends javax.swing.JFrame {
     private void slctSrcjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slctSrcjActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_slctSrcjActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
 
     /**
      * @param args the command line arguments
