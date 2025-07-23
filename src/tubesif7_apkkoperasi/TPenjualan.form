@@ -204,7 +204,9 @@
         <Component class="javax.swing.JComboBox" name="combo_barang">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="1">
+                <StringItem index="0" value="Cari Barang"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -219,7 +221,9 @@
             <Property name="autoscrolls" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 1000, 1))&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="kuantitas.setModel(spinnerModel);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);"/>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TPenjualan_kuantitas"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">

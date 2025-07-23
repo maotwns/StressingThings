@@ -21,6 +21,7 @@ public class TPenjualan extends javax.swing.JFrame {
      * Creates new form TPenjualan
      */
     public TPenjualan() {
+        SpinnerNumberModel spinnermodel = new SpinnerNumberModel(1,1,100,1);
         initComponents();
         dbsetting = new koneksi();
         driver = dbsetting.SettingPanel("DBDriver");
@@ -35,6 +36,9 @@ public class TPenjualan extends javax.swing.JFrame {
         tabelbelanja.setModel(tableModelbelanja);
         setcomboload();
         settableloaditem();
+        txt_harga.setEditable(false);
+        txt_sales_id.setEditable(false);
+        
         
     }
     //Tabel Daftar Item
@@ -105,13 +109,15 @@ public class TPenjualan extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "SELECT CONCAT(kodebrg, ' - ', namabrg) AS barang, hbeli FROM databarang;";
+            String SQL = "SELECT CONCAT(kodebrg, ' - ', namabrg) AS barang, hbeli, (SELECT IFNULL(MAX(sales_id), 0) + 1 FROM sales_transactions) AS sales_id FROM databarang;";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next()){
                 String namabarang = res.getString("barang");
                 String hargabarang = res.getString("hbeli");
+                String salesID = res.getString("sales_id");
                 combo_barang.addItem(namabarang);
                 txt_harga.setText(hargabarang);
+                txt_sales_id.setText(salesID);
                 
             
                 
@@ -127,6 +133,8 @@ public class TPenjualan extends javax.swing.JFrame {
             System.exit(0);
         }
     }
+        private SpinnerNumberModel spinnerModel;
+
         
 
 
@@ -145,8 +153,9 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btn_tambah = new javax.swing.JButton();
         combo_barang = new javax.swing.JComboBox();
-        kuantitas = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 1000, 1))
-        ;
+        spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
+        kuantitas = new javax.swing.JSpinner();
+        kuantitas.setModel(spinnerModel);
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txt_harga = new javax.swing.JTextField();
@@ -210,6 +219,7 @@ public class TPenjualan extends javax.swing.JFrame {
             }
         });
 
+        combo_barang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cari Barang" }));
         combo_barang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo_barangActionPerformed(evt);
@@ -496,10 +506,14 @@ public class TPenjualan extends javax.swing.JFrame {
             String code = tabelitem.getValueAt(i, 0).toString(); // Column 0 = Code
         if (code.equals(kode)) {
             Object valueInColumn4 = tabelitem.getValueAt(i, 3); // Column 4 (index 3)
+            String valueInColumn3 = (String) tabelitem.getValueAt(i, 2);
             txt_harga.setText((String)valueInColumn4);
+            spinnerModel.setValue(1);
+            spinnerModel.setMaximum(Integer.parseInt(valueInColumn3));
             break; // stop after finding the first match
+            }
         }
-        }
+        
     }//GEN-LAST:event_combo_barangActionPerformed
 
     private void btn_cashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cashActionPerformed
@@ -518,6 +532,7 @@ public class TPenjualan extends javax.swing.JFrame {
                               + " '"+sqlDate+"' ,"
                               + " "+txt_totalharga.getText()+");");
                 System.out.println(SQL1);
+                int ID = Integer.parseInt(txt_sales_id.getText())+1;
                 for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
                     stt.executeUpdate("INSERT INTO sales_details(sales_id,kodebrg,sale_price,quantity,total) "
                               + "VALUES "
@@ -527,6 +542,8 @@ public class TPenjualan extends javax.swing.JFrame {
                               + ""+tableModelbelanja.getValueAt(i, 2)+" ,"
                               + " "+tableModelbelanja.getValueAt(i, 4)+");");
                     String kode = (String) tableModelbelanja.getValueAt(i, 0);
+                    
+                    
                     
                     int stokawal = 0;
                     int stok1 = Integer.parseInt(tableModelbelanja.getValueAt(i, 2).toString());
@@ -540,9 +557,12 @@ public class TPenjualan extends javax.swing.JFrame {
                     }
                     }
                     
+                    
                 }
-
-
+                txt_sales_id.setText(Integer.toString(ID));
+                tableModelbelanja.setRowCount(0);
+                settableloaditem();
+                JOptionPane.showMessageDialog(null, "Berhasil Checkout!", "Data telah berhasil dicekout", JOptionPane.INFORMATION_MESSAGE);
                 stt.close();
                 kon.close();
                 
@@ -552,7 +572,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
             }
         
-
+        
         
     }//GEN-LAST:event_btn_cashActionPerformed
 
