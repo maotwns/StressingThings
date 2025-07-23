@@ -10,6 +10,10 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.JOptionPane;
+
 
 
 public class TPenjualan extends javax.swing.JFrame {
@@ -23,6 +27,7 @@ public class TPenjualan extends javax.swing.JFrame {
     public TPenjualan() {
         SpinnerNumberModel spinnermodel = new SpinnerNumberModel(1,1,100,1);
         initComponents();
+        
         dbsetting = new koneksi();
         driver = dbsetting.SettingPanel("DBDriver");
         database = dbsetting.SettingPanel("DBDatabase");
@@ -38,6 +43,29 @@ public class TPenjualan extends javax.swing.JFrame {
         settableloaditem();
         txt_harga.setEditable(false);
         txt_sales_id.setEditable(false);
+        tableModelbelanja.addTableModelListener(new TableModelListener() {
+        @Override
+        public void tableChanged(TableModelEvent e) {
+        if (e.getType() == TableModelEvent.UPDATE && e.getColumn() == 2) { // Quantity column
+            int row = e.getFirstRow();
+
+            try {
+                int qty = Integer.parseInt(tableModelbelanja.getValueAt(row, 2).toString());
+                int price = Integer.parseInt(tableModelbelanja.getValueAt(row, 3).toString());
+                int subtotal = qty * price;
+
+                tableModelbelanja.setValueAt(subtotal, row, 4); // Set subtotal
+                int total = 0;
+                for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
+                    total += (int) tableModelbelanja.getValueAt(i, 4); //
+                }
+                txt_totalharga.setText(String.valueOf(total));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Input tidak valid untuk kuantitas atau harga.");
+            }
+        }
+    }
+});
         
         
     }
@@ -99,6 +127,7 @@ public class TPenjualan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+        
     }
     
         private void setcomboload(){
@@ -138,7 +167,9 @@ public class TPenjualan extends javax.swing.JFrame {
         public void tampil_field(){
     
         row = tabelbelanja.getSelectedRow();
+        
     }
+    
 
         
 
@@ -610,8 +641,31 @@ public class TPenjualan extends javax.swing.JFrame {
         int kuantitas1 = Integer.parseInt(value.toString());
         int harga = Integer.parseInt(txt_harga.getText());
         int subtotal = kuantitas1*harga;
-        Object[] rowData = {kode, nama, kuantitas.getValue(), txt_harga.getText(),subtotal}; // Adjust to match your table columns
-        tableModelbelanja.addRow(rowData);
+        boolean found = false;
+
+        for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
+            String existingKode = tableModelbelanja.getValueAt(i, 0).toString();
+            String existingNama = tableModelbelanja.getValueAt(i, 1).toString();
+
+            if (existingKode.equals(kode) && existingNama.equals(nama)) {
+                // If match found, update quantity and subtotal
+                int currentQty = Integer.parseInt(tableModelbelanja.getValueAt(i, 2).toString());
+                int newQty = currentQty + kuantitas1; // Add new quantity
+                int newSubtotal = newQty * harga;
+
+                tableModelbelanja.setValueAt(newQty, i, 2);       // Update quantity
+                tableModelbelanja.setValueAt(newSubtotal, i, 4);  // Update subtotal
+                found = true;
+                break;
+            }
+        }
+
+        // If not found, add new row
+        if (!found) {
+
+            Object[] rowData = {kode, nama, kuantitas1, txt_harga.getText(), subtotal};
+            tableModelbelanja.addRow(rowData);
+        }
         
         int total = 0;
         for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
@@ -624,7 +678,8 @@ public class TPenjualan extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(evt.getClickCount()==1){
         
-            tampil_field();}
+            tampil_field();
+        }
     }//GEN-LAST:event_tabelbelanjaMouseClicked
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
