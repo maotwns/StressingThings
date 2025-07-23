@@ -43,6 +43,10 @@ public class TPenjualan extends javax.swing.JFrame {
         settableloaditem();
         txt_harga.setEditable(false);
         txt_sales_id.setEditable(false);
+        btn_cash.setEnabled(false);
+        date_tanggal.setDate(new Date());
+        
+        
         tableModelbelanja.addTableModelListener(new TableModelListener() {
         @Override
         public void tableChanged(TableModelEvent e) {
@@ -61,7 +65,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 }
                 txt_totalharga.setText(String.valueOf(total));
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Input tidak valid untuk kuantitas atau harga.");
+                JOptionPane.showMessageDialog(null, "Input tidak valid untuk kuantitas");
             }
         }
     }
@@ -169,6 +173,7 @@ public class TPenjualan extends javax.swing.JFrame {
         row = tabelbelanja.getSelectedRow();
         
     }
+        
     
 
         
@@ -208,7 +213,6 @@ public class TPenjualan extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txt_totalharga = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         btn_cash = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -247,7 +251,7 @@ public class TPenjualan extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Masukkan Barang");
+        jLabel3.setText("MASUKKAN BARANG");
 
         btn_tambah.setText("+");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
@@ -271,10 +275,11 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel2.setText("QTY");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Harga Barang");
+        jLabel9.setText("HARGA BARANG");
 
-        txt_harga.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txt_harga.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_harga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_harga.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -285,7 +290,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                             .addComponent(combo_barang, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -327,10 +332,10 @@ public class TPenjualan extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Keranjang Belanja"));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Tanggal Penjualan");
+        jLabel6.setText("TANGGAL PENJUALAN");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("(yyyy/mm/dd)");
+        jLabel7.setText("(MMDDYYY)");
 
         txt_sales_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +344,7 @@ public class TPenjualan extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("ID Penjualan");
+        jLabel5.setText("ID PENJUALAN");
 
         tabelbelanja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -362,7 +367,7 @@ public class TPenjualan extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setText("Total Bayar");
+        jLabel12.setText("TOTAL BAYAR");
 
         txt_totalharga.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_totalharga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -388,12 +393,8 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setLabel("Cashless");
-        jButton1.setPreferredSize(new java.awt.Dimension(140, 23));
-
         btn_cash.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_cash.setLabel("Cash");
+        btn_cash.setText("BAYAR");
         btn_cash.setPreferredSize(new java.awt.Dimension(140, 23));
         btn_cash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,8 +403,8 @@ public class TPenjualan extends javax.swing.JFrame {
         });
 
         btn_hapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_hapus.setText("HAPUS");
         btn_hapus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
-        btn_hapus.setLabel("Hapus");
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
@@ -422,7 +423,7 @@ public class TPenjualan extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -432,11 +433,9 @@ public class TPenjualan extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txt_sales_id, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(84, 84, 84)
-                                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_cash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btn_cash, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -455,13 +454,11 @@ public class TPenjualan extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(btn_cash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14))
+                .addComponent(btn_cash, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar Item"));
@@ -490,9 +487,10 @@ public class TPenjualan extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -626,9 +624,39 @@ public class TPenjualan extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
             }
-        
-        
-        
+            // 1. Prompt user for payment amount
+            String bayarStr = JOptionPane.showInputDialog(null, "Masukkan jumlah uang pelanggan:", "Input Uang", JOptionPane.QUESTION_MESSAGE);
+
+            if (bayarStr == null) {
+                // User pressed cancel
+                return;
+            }
+
+            try {
+                int bayar = Integer.parseInt(bayarStr);
+                int total = Integer.parseInt(txt_totalharga.getText());
+
+                if (bayar < total) {
+                    JOptionPane.showMessageDialog(null, "Uang tidak cukup!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int kembalian = bayar - total;
+
+                // 2. Show change
+                JOptionPane.showMessageDialog(null,
+                    "Total Belanja: Rp" + total + "\n" +
+                    "Uang Dibayar: Rp" + bayar + "\n" +
+                    "Kembalian: Rp" + kembalian,
+                    "Transaksi Berhasil", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Input tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            txt_totalharga.setText("0");
+            btn_cash.setEnabled(false);
+            
     }//GEN-LAST:event_btn_cashActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
@@ -672,6 +700,7 @@ public class TPenjualan extends javax.swing.JFrame {
             total += (int) tableModelbelanja.getValueAt(i, 4); //
         }
         txt_totalharga.setText(String.valueOf(total));
+        btn_cash.setEnabled(true);
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void tabelbelanjaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelbelanjaMouseClicked
@@ -731,7 +760,6 @@ public class TPenjualan extends javax.swing.JFrame {
     private javax.swing.JButton btn_tambah;
     private javax.swing.JComboBox combo_barang;
     private com.toedter.calendar.JDateChooser date_tanggal;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
