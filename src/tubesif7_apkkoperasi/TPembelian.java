@@ -41,7 +41,7 @@ public class TPembelian extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(combo_barang);
         date_tanggal.setDate(new Date());
         hiddentable.setModel(tableModelbarang);
-        hiddentable.setVisible(false);
+        hiddentable.setVisible(true);
 
         setcomboload();
         setcomboload2();
@@ -104,7 +104,7 @@ public class TPembelian extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "SELECT name FROM suppliers;";
+            String SQL = "SELECT CONCAT(supplier_id, ' - ', name) AS name FROM suppliers;";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next()){
                 String namabarang = res.getString("name"); 
@@ -121,7 +121,7 @@ public class TPembelian extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    String data[]=new String[3];
+    String data[]=new String[4];
     private void settableload(){
     
         String stat = "";
@@ -177,7 +177,6 @@ public class TPembelian extends javax.swing.JFrame {
         txt_carinama = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txt_kodebrg = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -186,6 +185,7 @@ public class TPembelian extends javax.swing.JFrame {
         txt_hbeli = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         combo_supplier = new javax.swing.JComboBox<String>();
+        hiddentable = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelpembelian = new javax.swing.JTable();
         btn_simpan = new javax.swing.JButton();
@@ -194,7 +194,6 @@ public class TPembelian extends javax.swing.JFrame {
         btn_submit = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txt_supply_id = new javax.swing.JTextField();
-        hiddentable = new javax.swing.JTable();
         date_tanggal = new com.toedter.calendar.JDateChooser();
         txt_totalharga = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -283,9 +282,6 @@ public class TPembelian extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Tanggal Transaksi");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel5.setText("(dd/mm/yy)");
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Kode Barang");
 
@@ -305,6 +301,20 @@ public class TPembelian extends javax.swing.JFrame {
         jLabel9.setText("Supplier");
 
         combo_supplier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        hiddentable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        hiddentable.setOpaque(false);
+        hiddentable.setRequestFocusEnabled(false);
 
         tabelpembelian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -350,20 +360,7 @@ public class TPembelian extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("ID Pembelian");
 
-        txt_supply_id.setText("0");
-
-        hiddentable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        hiddentable.setOpaque(false);
+        txt_supply_id.setText("1");
 
         txt_totalharga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_totalharga.setText("0");
@@ -377,37 +374,36 @@ public class TPembelian extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(jLabel5))
-                            .addComponent(kuantitas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_kodebrg, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_hbeli, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(236, 236, 236)
-                                .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1)
+                                .addGap(118, 118, 118)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kuantitas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_kodebrg, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_hbeli, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(combo_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(hiddentable, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addGap(74, 74, 74)
+                        .addComponent(txt_totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -416,18 +412,17 @@ public class TPembelian extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(date_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
-                        .addGap(40, 40, 40)
-                        .addComponent(txt_totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(hiddentable, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,9 +431,18 @@ public class TPembelian extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel10)
+                                .addComponent(txt_supply_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(date_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(hiddentable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -450,35 +454,22 @@ public class TPembelian extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txt_hbeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel10)
-                                .addComponent(txt_supply_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(date_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_hbeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(combo_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_simpan)
-                    .addComponent(jButton5)
-                    .addComponent(btn_hapus)
-                    .addComponent(btn_submit))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(hiddentable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jLabel9)
+                    .addComponent(combo_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_totalharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton5)
+                        .addComponent(btn_submit))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_simpan)
+                        .addComponent(btn_hapus)))
+                .addGap(108, 108, 108))
         );
 
         pack();
@@ -506,39 +497,46 @@ public class TPembelian extends javax.swing.JFrame {
                 Connection kon = DriverManager.getConnection(database,user,pass);
                 Statement stt = kon.createStatement();
                 StringBuilder SQL1 = new StringBuilder();
-                SQL1.append("INSERT INTO supply_transactions(supply_id,date,total_amount) "
+                stt.executeUpdate("INSERT INTO supply_transactions(supply_id,date,total_amount) "
                               + "VALUES "
                               + "("+txt_supply_id.getText()+","
                               + " '"+sqlDate+"' ,"
                               + " "+txt_totalharga.getText()+");");
+                System.out.println(SQL1);
                 int ID = Integer.parseInt(txt_supply_id.getText())+1;
                 for (int i = 0; i < tableModelitem.getRowCount(); i++) {
-                    SQL1.append("INSERT INTO supply_details(supply_id,kodebrg,supplier_id,quantity,purchase_price) "
+                    String selectedItem = tableModelitem.getValueAt(i, 2).toString();
+                    String[] parts = selectedItem.split(" - ");
+                    String kodespl = parts[0];   
+                    String nama = parts[1];
+                    int total = 0;
+                    total += Integer.parseInt(tableModelitem.getValueAt(i, 3).toString())  * Integer.parseInt(tableModelitem.getValueAt(i, 4).toString());           
+                    
+                    
+                    stt.executeUpdate("INSERT INTO supply_details(supply_id,kodebrg,supplier_id,quantity,purchase_price) "
                               + "VALUES "
                               + "("+txt_supply_id.getText()+","
                               + "'"+tableModelitem.getValueAt(i, 0)+"' ,"
-                              + ""+tableModelitem.getValueAt(i, 2)+" ,"
-                              + ""+tableModelitem.getValueAt(i, 2)+" ,"
-                              + " "+tableModelitem.getValueAt(i, 4)+");");
-                    String kode = (String) tableModelitem.getValueAt(i, 0);
-                    
-                    
-                    
+                              + ""+kodespl+" ,"
+                              + ""+tableModelitem.getValueAt(i, 3)+" ,"
+                              + " "+total+");");
+                    String kode = tableModelitem.getValueAt(i, 0).toString();
                     int stokawal = 0;
-                    int stok1 = Integer.parseInt(tableModelitem.getValueAt(i, 2).toString());
+                    int stok1 = Integer.parseInt(tableModelitem.getValueAt(i, 3).toString());
                     for (int j = 0; j < hiddentable.getRowCount(); j++) {
                         String code = hiddentable.getValueAt(j, 0).toString(); // Column 0 = Code
                     if (code.equals(kode)) {
-                        String valueInColumn4 = (String) hiddentable.getValueAt(j, 2); // Column 4 (index 3)
-                        stokawal = Integer.parseInt(valueInColumn4.toString());
+                        String valueInColumn4 = hiddentable.getValueAt(j, 3).toString(); // Column 4 (index 3)
+                        stokawal = Integer.parseInt(valueInColumn4);
                         int stokakhir = stokawal+stok1;
-                        SQL1.append("UPDATE databarang SET stok=" + ""+stokakhir+" WHERE kodebrg=" + "'"+kode+"';");
+                        tableModelbarang.setValueAt(stokakhir, j, 3);
+                        stt.executeUpdate("UPDATE databarang SET stok=" + ""+stokakhir+" WHERE kodebrg=" + "'"+kode+"';");
                     }
                     }
                     
-                    
+                     
                 }
-                System.out.println(SQL1);
+
                 txt_supply_id.setText(Integer.toString(ID));
                 tableModelitem.setRowCount(0);
                 JOptionPane.showMessageDialog(null, "Berhasil Checkout!", "Data telah berhasil dicekout", JOptionPane.INFORMATION_MESSAGE);
@@ -584,6 +582,8 @@ public class TPembelian extends javax.swing.JFrame {
         String kode = parts[0];   // B001
         String nama = parts[1];   // Teh Botol
         String supplier = (String) combo_supplier.getSelectedItem();
+
+        
         Object value = kuantitas.getValue();
         int kuantitas1 = Integer.parseInt(value.toString());
         int harga = Integer.parseInt(txt_hbeli.getText());
@@ -677,7 +677,6 @@ public class TPembelian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
