@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package tubesif7_apkkoperasi;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
 
 /**
  *
@@ -16,6 +18,13 @@ public class TubesIF7_ApkKoperasi {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Gagal mengatur Look & Feel.");
+        }
+
+        
         Login loginmenu = new Login();
         loginmenu.setVisible(true);
     }
