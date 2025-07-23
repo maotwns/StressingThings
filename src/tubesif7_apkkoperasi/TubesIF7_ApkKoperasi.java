@@ -5,8 +5,6 @@
  */
 package tubesif7_apkkoperasi;
 
-import javax.swing.UIManager;
-
 /**
  *
  * @author hana
@@ -20,5 +18,7 @@ public class TubesIF7_ApkKoperasi {
         // TODO code application logic here
         Login loginmenu = new Login();
         loginmenu.setVisible(true);
-}
+
+    }
+    
 }
