@@ -57,9 +57,11 @@ public class TPenjualan extends javax.swing.JFrame {
                                "Harga",
                                "Subtotal"}
             ){
-                boolean[] canEdit = {false,false,false,false,false};
+                boolean[] canEdit = {false,false,true,false,false};
                 @Override public boolean isCellEditable(int r,int c){ return canEdit[c]; }
         };
+    
+    
     String data[]=new String[5];
     private void settableloaditem(){
 
@@ -152,9 +154,9 @@ public class TPenjualan extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        date_tanggal = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_sales_id = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelbelanja = new javax.swing.JTable();
@@ -162,7 +164,7 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txt_totalharga = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_cash = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelitem = new javax.swing.JTable();
@@ -283,9 +285,9 @@ public class TPenjualan extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("(yyyy/mm/dd)");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txt_sales_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txt_sales_idActionPerformed(evt);
             }
         });
 
@@ -338,12 +340,12 @@ public class TPenjualan extends javax.swing.JFrame {
         jButton1.setLabel("Cashless");
         jButton1.setPreferredSize(new java.awt.Dimension(140, 23));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setLabel("Cash");
-        jButton2.setPreferredSize(new java.awt.Dimension(140, 23));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_cash.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cash.setLabel("Cash");
+        btn_cash.setPreferredSize(new java.awt.Dimension(140, 23));
+        btn_cash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_cashActionPerformed(evt);
             }
         });
 
@@ -363,15 +365,15 @@ public class TPenjualan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(date_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_sales_id, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btn_cash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -379,12 +381,12 @@ public class TPenjualan extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(date_tanggal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
+                    .addComponent(txt_sales_id)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +395,7 @@ public class TPenjualan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_cash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -474,9 +476,9 @@ public class TPenjualan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txt_sales_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_sales_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txt_sales_idActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -500,9 +502,59 @@ public class TPenjualan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_combo_barangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_cashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cashActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Date selectedDate = date_tanggal.getDate();
+        java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+        try{
+            
+                Class.forName(driver);
+                Connection kon = DriverManager.getConnection(database,user,pass);
+                Statement stt = kon.createStatement();
+                StringBuilder SQL1 = new StringBuilder();
+                stt.executeUpdate("INSERT INTO sales_transactions(sales_id,date,total_amount) "
+                              + "VALUES "
+                              + "("+txt_sales_id.getText()+","
+                              + " '"+sqlDate+"' ,"
+                              + " "+txt_totalharga.getText()+");");
+                System.out.println(SQL1);
+                for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
+                    stt.executeUpdate("INSERT INTO sales_details(sales_id,kodebrg,sale_price,quantity,total) "
+                              + "VALUES "
+                              + "("+txt_sales_id.getText()+","
+                              + "'"+tableModelbelanja.getValueAt(i, 0)+"' ,"
+                              + ""+tableModelbelanja.getValueAt(i, 3)+" ,"
+                              + ""+tableModelbelanja.getValueAt(i, 2)+" ,"
+                              + " "+tableModelbelanja.getValueAt(i, 4)+");");
+                    String kode = (String) tableModelbelanja.getValueAt(i, 0);
+                    
+                    int stokawal = 0;
+                    int stok1 = Integer.parseInt(tableModelbelanja.getValueAt(i, 2).toString());
+                    for (int j = 0; j < tabelitem.getRowCount(); j++) {
+                        String code = tabelitem.getValueAt(j, 0).toString(); // Column 0 = Code
+                    if (code.equals(kode)) {
+                        String valueInColumn4 = (String) tabelitem.getValueAt(j, 2); // Column 4 (index 3)
+                        stokawal = Integer.parseInt(valueInColumn4.toString());
+                        int stokakhir = stokawal-stok1;
+                        stt.executeUpdate("UPDATE databarang SET stok=" + ""+stokakhir+" WHERE kodebrg=" + "'"+kode+"';");
+                    }
+                    }
+                    
+                }
+
+
+                stt.close();
+                kon.close();
+                
+            }
+            catch (Exception ex){
+            
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        
+
+        
+    }//GEN-LAST:event_btn_cashActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         // TODO add your handling code here:
@@ -513,13 +565,13 @@ public class TPenjualan extends javax.swing.JFrame {
         Object value = kuantitas.getValue();
         int kuantitas1 = Integer.parseInt(value.toString());
         int harga = Integer.parseInt(txt_harga.getText());
-        double subtotal = kuantitas1*harga;
+        int subtotal = kuantitas1*harga;
         Object[] rowData = {kode, nama, kuantitas.getValue(), txt_harga.getText(),subtotal}; // Adjust to match your table columns
         tableModelbelanja.addRow(rowData);
         
-        double total = 0;
+        int total = 0;
         for (int i = 0; i < tableModelbelanja.getRowCount(); i++) {
-            total += (double) tableModelbelanja.getValueAt(i, 4); // assuming column 3 is subtotal
+            total += (int) tableModelbelanja.getValueAt(i, 4); //
         }
         txt_totalharga.setText(String.valueOf(total));
     }//GEN-LAST:event_btn_tambahActionPerformed
@@ -560,11 +612,11 @@ public class TPenjualan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cash;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JComboBox combo_barang;
+    private com.toedter.calendar.JDateChooser date_tanggal;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -582,11 +634,11 @@ public class TPenjualan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JSpinner kuantitas;
     private javax.swing.JTable tabelbelanja;
     private javax.swing.JTable tabelitem;
     private javax.swing.JTextField txt_harga;
+    private javax.swing.JTextField txt_sales_id;
     private javax.swing.JTextField txt_totalharga;
     // End of variables declaration//GEN-END:variables
 }
