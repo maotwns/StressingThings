@@ -30,6 +30,7 @@ public class Supplier extends javax.swing.JFrame {
         
         tabelsupplier.setModel(tableModel);
         settableload();
+        btn_simpan.setEnabled(false);
         
     }
     
@@ -177,8 +178,6 @@ public class Supplier extends javax.swing.JFrame {
         label_cari.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         label_cari.setText("Masukkan Data");
 
-        txt_cari.setText("jTextField1");
-
         btn_cari.setLabel("Cari");
         btn_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,12 +282,22 @@ public class Supplier extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tabelsupplier);
 
         btn_tambah.setText("Tambah");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
         btn_ubah.setText("Ubah");
         btn_ubah.setPreferredSize(new java.awt.Dimension(71, 23));
 
         btn_hapus.setText("Hapus");
         btn_hapus.setPreferredSize(new java.awt.Dimension(71, 23));
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusActionPerformed(evt);
+            }
+        });
 
         btn_simpan.setText("Simpan");
         btn_simpan.setPreferredSize(new java.awt.Dimension(71, 23));
@@ -334,17 +343,16 @@ public class Supplier extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_tambah)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -375,11 +383,11 @@ public class Supplier extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah)
-                    .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_keluar))
+                    .addComponent(btn_keluar)
+                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -474,7 +482,7 @@ public class Supplier extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
-        String data[]=new String[3];
+        String data[]=new String[4];
         
         if((txt_namaspl.getText().isEmpty()) || (txt_telpspl.getText().isEmpty())){
         
@@ -488,18 +496,19 @@ public class Supplier extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database,user,pass);
                 Statement stt = kon.createStatement();
-                String SQL = "INSERT INTO suppliers(name,"
+                String SQL = "INSERT INTO suppliers(supplier_id,name,"
                               + "address,"
                               + "phone) "
                               + "VALUES "
                               + "( '"+txt_namaspl.getText()+"',"
-                              + " '"+txt_alamatspl.getText()+"' ,"
+                              + " '"+txt_kodespl.getText()+"',"
+                              + " '"+txt_alamatspl.getText()+"',"
                               + " '"+txt_telpspl.getText()+"')";
                 stt.executeUpdate(SQL);
+                data[0] = txt_kodespl.getText();
                 data[1] = txt_namaspl.getText();
                 data[2] = txt_alamatspl.getText();
                 data[3] = txt_telpspl.getText();
-
                 tableModel.insertRow(1, data);
                 stt.close();
                 kon.close();
@@ -514,10 +523,17 @@ public class Supplier extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+        btn_simpan.setEnabled(false);
+        btn_ubah.setEnabled(true);
+        btn_hapus.setEnabled(true);
     }//GEN-LAST:event_btn_simpanActionPerformed
 
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
         // TODO add your handling code here:
+        btn_simpan.setEnabled(false);
+        btn_ubah.setEnabled(true);
+        btn_hapus.setEnabled(true);
+        tampil_field();
        
     }//GEN-LAST:event_btn_batalActionPerformed
 
@@ -531,6 +547,61 @@ public class Supplier extends javax.swing.JFrame {
         // TODO add your handling code here:
         label_cari.setText("Masukkan Nama");
     }//GEN-LAST:event_radio_namaActionPerformed
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        // TODO add your handling code here:
+        membersihkan_teks();
+        try{
+        
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt=kon.createStatement();
+            String SQL = "SELECT IFNULL(MAX(supplier_id), 0) + 1 AS supplier_id FROM suppliers";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next()){
+            
+                String newkodespl = res.getString("supplier_id");
+                txt_kodespl.setText(newkodespl);
+
+                
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch(Exception ex){
+        
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+        txt_kodespl.requestFocus();
+        btn_simpan.setEnabled(true);
+        btn_ubah.setEnabled(false);
+        btn_hapus.setEnabled(false);
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+        // TODO add your handling code here:
+        try{
+        
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt = kon.createStatement();
+            String SQL = "DELETE FROM suppliers "
+                        + "WHERE "
+                    + "`supplier_id`='"+tableModel.getValueAt(row, 0).toString()+"';";
+            stt.executeUpdate(SQL);
+            tableModel.removeRow(row);
+            stt.close();
+            kon.close();
+            membersihkan_teks();
+        }
+        catch (Exception ex){
+            
+                System.err.println(ex.getMessage());
+            }
+    }//GEN-LAST:event_btn_hapusActionPerformed
 
     /**
      * @param args the command line arguments

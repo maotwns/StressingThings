@@ -61,17 +61,16 @@
                   <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="btn_tambah" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btn_ubah" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="btn_ubah" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_hapus" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btn_simpan" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_simpan" min="-2" pref="79" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_batal" min="-2" pref="73" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btn_keluar" min="-2" pref="97" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -111,11 +110,11 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_tambah" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_ubah" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_hapus" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_simpan" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_batal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_keluar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_batal" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btn_simpan" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btn_hapus" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btn_ubah" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
@@ -239,9 +238,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_cari">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btn_cari">
           <Properties>
@@ -359,6 +355,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Tambah"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_tambahActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_ubah">
       <Properties>
@@ -375,6 +374,9 @@
           <Dimension value="[71, 23]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_hapusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_simpan">
       <Properties>
